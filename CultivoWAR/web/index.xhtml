@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Sistema de Monitoreo de Plantas</title>
+    </h:head>
+    <h:body>
+        <h:form id='formulario'>
+            <h:panelGroup layout="block">
+                <p:panelGrid columns="2" layout="grid">
+                    <p:panel header="Registrar Medida">
+                        
+                    </p:panel>
+                    <p:panel header="Medidas Registradas">
+                        <p:dataTable >
+                        
+                        </p:dataTable>
+                    </p:panel>
+                </p:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup layout="block">
+                <p:chart type="line" model="#{plantasManagedBean.modeloGrafico}" style="height:600px" ></p:chart>
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
+
