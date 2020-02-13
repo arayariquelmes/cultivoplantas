@@ -21,33 +21,65 @@ public class PlantasDAO implements PlantasDAOLocal {
 
     private EntityManagerFactory emf = Persistence
             .createEntityManagerFactory("CultivoModelPU");
+
     @Override
     public List<Planta> findAll() {
         EntityManager em = this.emf.createEntityManager();
-        try{
+        try {
             return em.createNamedQuery("Planta.findAll", Planta.class)
                     .getResultList();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return null;
-        }finally{
+        } finally {
             em.close();
         }
-        
+
     }
 
     @Override
     public void add(Planta planta) {
         EntityManager em = this.emf.createEntityManager();
-        try{
+        try {
             em.persist(planta);
             em.flush();
-        }catch(Exception ex){
-            
-        }finally{
+        } catch (Exception ex) {
+
+        } finally {
             em.close();
         }
     }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    @Override
+    public boolean remove(Planta planta) {
+        //BoilerPlate Code - > Codigo utilizado una cachá de veces
+        EntityManager em = this.emf.createEntityManager();
+        try {
+            em.remove(em.find(Planta.class, planta.getId()));
+            em.flush();
+            return true;
+        } catch (Exception ex) {
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void removeAll() {
+        EntityManager em = this.emf.createEntityManager();
+        try {
+            //Con JPA -> createQuery o createNamedQuery
+            //Con SQL -> createNativeQuery
+            em.createQuery("DELETE FROM Planta").executeUpdate();
+            em.flush();
+            //em.createNativeQuery("SELECT * FROM plantas INNER JOIN a, etc etc")
+        } catch (Exception ex) {
+           
+        } finally {
+            em.close();
+        }
+    }
+
 }

@@ -17,4 +17,6 @@ import javax.ejb.Local;
 public interface PlantasDAOLocal {
     public List<Planta> findAll();
     public void add(Planta planta);
+    public boolean remove(Planta planta);
+    public void removeAll();
 }

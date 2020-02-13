@@ -9,11 +9,20 @@
     </h:head>
     <h:body>
         <h:form id='formulario'>
+            <p:growl id="mensajes" />
             <p:poll interval="5" listener="#{plantasManagedBean.cargarGrafico}" update="panel-grafico tabla-medidas"   />
             <h:panelGroup layout="block">
                 <p:panelGrid columns="2" layout="grid">
                     <p:panel header="Registrar Medida">
-                        
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Fecha" />
+                            <p:calendar value="#{plantasManagedBean.fechaMedida}" pattern="dd/MM/yyyy HH:mm:ss" />
+                            <p:outputLabel value="Valor Humedad" />
+                            <p:inputNumber thousandSeparator="" minValue="-100" maxValue="100"
+                                           value="#{plantasManagedBean.valor}" decimalPlaces="2" />
+                            <p:commandButton value="Registrar Medida" update="panel-grafico tabla-medidas mensajes"
+                                             actionListener="#{plantasManagedBean.registrarMedida}"/>
+                        </h:panelGrid>
                     </p:panel>
                     <p:panel header="Medidas Registradas">
                         <p:dataTable id="tabla-medidas" scrollable="true" scrollHeight="500"  value="#{plantasManagedBean.registros}" var="planta" stickyHeader="true" >
@@ -23,7 +32,12 @@
                                 </h:outputText>
                             </p:column>
                             <p:column headerText="Humedad">
-                                <h:outputText value="#{planta.valorHumedad}" />
+                                <h:outputText value="#{planta.valorHumedad}" />                                    
+                            </p:column>
+                            <p:column headerText="Acciones">
+                                <p:commandLink value="Descartar"
+                                               actionListener="#{plantasManagedBean.descartarMedida(planta)}"
+                                               update=":formulario:panel-grafico tabla-medidas" />
                             </p:column>
                         </p:dataTable>
                     </p:panel>
